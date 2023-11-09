@@ -3,7 +3,10 @@ import { Breadcrumb, Image } from 'react-bootstrap';
 import trach from '../assets/images/DeleteOutlined.svg';
 import songImage from '../assets/images/songImage.png';
 import play from '../assets/images/play.svg';
+import pauseIcon from '../assets/images/pause.svg';
+import back from '../assets/images/prev.svg';
 import song1 from '../assets/song/song1.mp3';
+import next from '../assets/images/next.svg';
 // import song2 from '../assets/song/song2.mpeg';
 // import song3 from '../assets/song/song3.mpeg';
 // import song4 from '../assets/song/song4.mpeg';
@@ -49,9 +52,9 @@ export default function Home() {
           {song?.map((item, i) => {
             return (
               <tr className='table-body-row'>
-                <td><Image src={item.img || songImage} alt='image' /> {item.name |"Song Name"}</td>
-                <td>{ item.sorce ||"Youtube"}</td>
-                <td>{ item.date || '19/6/2021'}</td>
+                <td><Image src={item.img || songImage} alt='image' /> {item.name | "Song Name"}</td>
+                <td>{item.sorce || "Youtube"}</td>
+                <td>{item.date || '19/6/2021'}</td>
                 <td><Image src={play} alt='icon-play' /></td>
                 <td><Image src={trach} alt='delete-icon' /></td>
               </tr>
@@ -62,9 +65,16 @@ export default function Home() {
 
       </table>
       <div className="song-play-box">
-        <div className=" d-flex align-items-center ">
-          <Image src={songImage} className='song-image' alt='image'/>
+        <div className=" d-flex align-items-center song-name-image">
+          <Image src={songImage} className='song-image' alt='image' />
           <span className='fs-18 fw-bold '>Sont name</span>
+        </div>
+        <div className="song-actions">
+          <div className="play-song-frame">
+            <Image src={back} className='back-btn' alt='back-btn' />
+            <Image src={pauseIcon} className='play-btn' alt='play-btn' />
+            <Image src={next} className='next-btn' alt='next-btn' />
+          </div>
         </div>
       </div>
     </section>

@@ -13,107 +13,115 @@
                 line-height: lh(22);
                 color: $black-45;
             }
-          .active{
-            a{
-                
-                font-size: fs(14);
-                font-style: normal;
-                font-weight: 400;
-                line-height: lh(22);
-                 
+            .active {
+                a {
+
+                    font-size: fs(14);
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: lh(22);
+
+                }
             }
-          }
-          &::before{
-            // font-size: fs(30);
-            
-          }
+            &::before {
+                // font-size: fs(30);
+
+            }
 
         }
     }
 }
-.song-right-mainsection{
+.song-right-mainsection {
     position: relative;
     height: 100%;
 }
-.song-table{
+.song-table {
     width: 100%;
-    .thable-header-row{
-        th{
-            padding:dm(40) 0 dm(20) 0;
+    .thable-header-row {
+        th {
+            padding: dm(40) 0 dm(20);
             font-size: fs(14);
             line-height: lh(22);
             font-weight: 500;
             color: rgba(0, 0, 0, 0.85);
             text-align: start;
-            &:first-child{
+            &:first-child {
                 padding-left: dm(42);
                 width: 30vw;
             }
-            &:nth-child(2){
+            &:nth-child(2) {
                 width: 20vw;
             }
-            &:nth-child(3){
+            &:nth-child(3) {
                 width: 20vw;
             }
-            &:nth-child(4){
+            &:nth-child(4) {
                 width: 20vw;
             }
-            &:last-child{
+            &:last-child {
                 width: 10vw;
-                img{
+                img {
                     padding: 0 dm(10);
                 }
             }
         }
-        
+
     }
-    .table-body-row{
-        td{
-            padding:0;
+    .table-body-row {
+        td {
+            padding: 0;
             height: dm(72);
             font-size: fs(14);
             line-height: lh(22);
             font-weight: 500;
             color: rgba(0, 0, 0, 0.85);
             text-align: start;
-            &:first-child{
+            &:first-child {
                 padding-left: dm(15);
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
                 cursor: pointer;
                 gap: dm(19);
-                img{
+                img {
                     width: dm(71);
                     object-fit: cover;
                 }
             }
-            &:nth-child(2){
+            &:nth-child(2) {
                 width: 20vw;
             }
-            &:nth-child(3){
+            &:nth-child(3) {
                 width: 20vw;
             }
-            &:nth-child(4){
-                img{
+            &:nth-child(4) {
+                img {
                     width: dm(40);
                     cursor: pointer;
                 }
             }
-            &:last-child{
+            &:last-child {
                 width: 10vw;
-                img{
+                img {
                     width: dm(16);
                     margin: 0 dm(10);
                     cursor: pointer;
                 }
             }
         }
-        
+
     }
 }
-.song-actions{
+.song-actions {
     position: absolute;
     bottom: 0;
     left: 0;
+    .play-song-frame {
+        height: dm(71);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
 }
