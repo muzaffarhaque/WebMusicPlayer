@@ -1,0 +1,1 @@
+export const OTP=5678;

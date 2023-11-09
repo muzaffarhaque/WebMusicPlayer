@@ -1,0 +1,95 @@
+
+// ================= FONT SIZE FUNCTION -------------------
+//1440 screen
+@function fs($a){
+    @return calc(($a * 1)/14.4) + vw;
+  }
+  @function dm($a){
+    @return calc(($a * 1)/14.4) + vw;
+  }
+  @function lh($a){
+    @return calc(($a * 1)/14.4) + vw;
+  }
+  
+  
+    // ================= FONT SIZE FUNCTION -------------------
+    // 
+    // 
+    // 
+    // 
+    // =================== FONT SIZE START ============================
+    .fs-10{
+      font-size: fs(10);
+      line-height: lh(16);
+    }
+    .fs-12{
+      font-size: fs(12);
+      line-height: lh(14);
+    }
+    .fs-14{
+      font-size: fs(14);
+      line-height: lh(21);
+    }
+    .fs-15{
+      font-size: fs(15);
+      line-height: lh(22);
+    }
+    .fs-16{
+      font-size:fs(16);
+      line-height: lh(24);
+    }
+    .fs-18{
+      font-size:fs(18);
+      line-height: lh(27);
+    }
+    .fs-20{
+      font-size:fs(20);
+      line-height: lh(24);
+    }
+    .fs-22{
+      font-size:fs(22);
+      line-height: lh(29);
+    }
+    .fs-24{
+      font-size:fs(24);
+      line-height: lh(29);
+    }
+    .fs-36{
+      font-size:fs(36);
+      line-height: lh(40);
+    }
+    .fs-38{
+      font-size:fs(38);
+      line-height: lh(45);
+    }
+    
+    // =================== FONT SIZE END ==============================
+    // 
+    // ============== FONT FAIMALY ===================
+    .opensans{
+      font-family: 'Open Sans', sans-serif;
+    }
+    .raleway{
+      font-family: "Raleway";
+    }
+    // ============== FONT FAIMALY ===================
+    // ====================== FONT WEIGHT========================
+    .fw-regular{
+      font-weight: 400;
+    }
+    .fw-500{
+      //medium
+      font-weight: 500;
+    }
+    .fw-600{
+      //semi-bolde
+      font-weight: 600;
+    }
+    .fw-bold{
+      font-weight: 700;
+    }
+    .fw-bolder{
+      font-weight: bolder;
+    }
+    // ====================== FONT WEIGHT========================
+    

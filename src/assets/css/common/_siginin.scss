@@ -1,0 +1,60 @@
+.otp-box,
+.sign-in-box {
+    width: dm(414);
+    h4 {
+        margin-bottom: dm(10);
+    }
+    p {
+        margin-bottom: dm(25);
+    }
+}
+.sigin-input-number-frame {
+    border-radius: dm(12);
+    border: dm(1) solid #E4E8F0;
+    padding: dm(15) dm(24);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: dm(24);
+    .flag-image {
+        width: dm(26);
+        margin-right: dm(20);
+    }
+    .input-box-button {
+        width: 100%;
+        outline: none;
+        border: none;
+        padding-left: dm(10);
+        background-color: $white !important;
+        &:active,&:focus{
+            background-color: $white;
+        }
+        &::-webkit-inner-spin-button {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+        }
+
+    }
+}
+.input-fiels-frame{
+    display: flex;
+    gap: dm(33.28);
+    align-items: center;
+    justify-content: center;
+    margin-bottom: dm(24);
+    .otp-input-box {
+        outline: none;
+        border: none;
+        border-radius: dm(2);
+        border: dm(1) solid #D0D3D4;
+        background: $white;
+        width: dm(78.54);
+        height: dm(77.2);
+        text-align: center;
+        font-size: dm(20);
+        font-weight: 500;
+        background-color: $white;
+    }
+    
+}
