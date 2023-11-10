@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Breadcrumb, Image } from 'react-bootstrap';
 import trach from '../assets/images/DeleteOutlined.svg';
 import songImage from '../assets/images/songImage.png';
@@ -41,6 +41,7 @@ export default function Home() {
   const paginatedSongs = song.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const toggleAudio = () => {
+    console.log(isPlaying)
     if (isPlaying) {
       audioRef.current.pause();
     } else {
@@ -54,7 +55,7 @@ export default function Home() {
   useEffect(() => {
     const updateCurrentTime = () => {
       setCurrentTime(audioRef.current.currentTime);
-      console.log(currentTime)
+      // console.log(currentTime)
     };
     audioRef.current.addEventListener('timeupdate', updateCurrentTime);
     return () => {
@@ -76,16 +77,21 @@ export default function Home() {
     };
   }, [audioFile]);
 
+  useEffect(() => {
+      setIsPlaying(true);
+      audioRef.current.play().catch((error) => {
+      });
+  }, [file])
   function setPathAudioFile(data) {
-    console.log(data)
+    // console.log(data)
     audioRef.current.pause();
-    setIsPlaying(false);
+    // setIsPlaying(false);
     // Set the new audio source and song name
     setAudioFile({ file: data.path, songName: data.name, img: data.img });
-    console.log(audioRef.current)
-    // Reset the current time to 0
+    // console.log(audioRef.current)
     setCurrentTime(0);
-
+    // handleClickCallback()
+   
   }
   function addSongFormData(data) {
     console.log(data)
@@ -103,9 +109,29 @@ export default function Home() {
       setSong(reoveItem);
   }
   const timeUpdateHandler = (e) => {
-    console.log(e.target.currentTime);
+    // console.log(e.target.currentTime);
     setCurrentTime(e.target.currentTime);
   };
+  function nextHandler(){
+    const currentSongObj=song.find((item)=>item.path===file);
+    let currentIndex=song.indexOf(currentSongObj)
+     if((currentIndex + 1)===song.length-1){
+      setPathAudioFile(song[0]);
+    }else{
+      setPathAudioFile(song[currentIndex + 1]);
+    }
+   
+  }
+  function pretHandler(){
+    const currentSongObj=song.find((item)=>item.path===file);
+    let currentIndex=song.indexOf(currentSongObj)
+     if((currentIndex - 1)<0){
+      setPathAudioFile(song[4]);
+    }else{
+      setPathAudioFile(song[currentIndex - 1]);
+    }
+   
+  }
   return (
     <section className='song-right-mainsection'>
       {showModal && <AddSong show={showModal} handleClose={() => { setShowModal(false) }} passData={(e) => addSongFormData(e)} />}
@@ -178,9 +204,9 @@ export default function Home() {
           </div>
 
           <div className="play-song-frame">
-            <Image src={back} className='back-btn' alt='back-btn' />
+            <Image src={back} onClick={pretHandler} className='back-btn' alt='back-btn' />
             {isPlaying ? <Image src={pauseIcon} onClick={toggleAudio} className='play-btn' alt='play-btn' /> : <Image src={play} onClick={toggleAudio} className='play-btn' alt='play-btn' />}
-            <Image src={next} className='next-btn' alt='next-btn' />
+            <Image src={next} onClick={nextHandler} className='next-btn' alt='next-btn' />
           </div>
         </div>
       </div>
