@@ -32,8 +32,9 @@
     }
 }
 .song-right-mainsection {
-    position: relative;
+    // position: relative;
     height: 100%;
+    padding-bottom: dm(80);
 }
 .song-table {
     width: 100%;
@@ -112,16 +113,81 @@
 
     }
 }
-.song-actions {
-    position: absolute;
+.song-play-box {
+    position: fixed;
+    z-index: 9;
+    background-color: $white;
     bottom: 0;
-    left: 0;
-    .play-song-frame {
+    right: 0;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .song-actions {
         height: dm(71);
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        .song-name-image {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: dm(5);
+            .song-image{
+                width: dm(70);
+            }
+        }
+        .play-song-frame {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: dm(18);
+            padding-right: dm(23);
+            img {
+                cursor: pointer;
+            }
+            .back-btn,
+            .next-btn {
+                width: dm(22);
+            }
+            .play-btn {
+                width: dm(25);
+            }
+        }
     }
 
+}
+
+
+.video-range{
+    -webkit-appearance: none;
+    width: 100%;
+    height: dm(5);
+    background: #ccc;
+    border-radius:dm(1);
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: dm(20);
+        height: dm(20);
+        background: $yellow-FD8;
+        border: dm(2) solid $yellow-FD8;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    // &::before {
+    //     content: '';
+    //     height: dm(5) !important;
+    //     width: 60%; /* Change this value to set the filled range */
+    //     height: 100%;
+    //     background: #191a1b; /* Change this color to your desired filled color */
+    //     position: absolute;
+    //     border-radius: dm(1);
+    // }
 }

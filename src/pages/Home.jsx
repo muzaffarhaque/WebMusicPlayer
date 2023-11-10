@@ -1,33 +1,88 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Breadcrumb, Image } from 'react-bootstrap';
 import trach from '../assets/images/DeleteOutlined.svg';
 import songImage from '../assets/images/songImage.png';
 import play from '../assets/images/play.svg';
 import pauseIcon from '../assets/images/pause.svg';
 import back from '../assets/images/prev.svg';
-import song1 from '../assets/song/song1.mp3';
 import next from '../assets/images/next.svg';
-// import song2 from '../assets/song/song2.mpeg';
-// import song3 from '../assets/song/song3.mpeg';
-// import song4 from '../assets/song/song4.mpeg';
-// import song5 from '../assets/song/song5.mpeg';
-// import song6 from '../assets/song/song6.mpeg';
-// import song7 from '../assets/song/song7.mpeg';
-// import song8 from '../assets/song/song8.mpeg';
-// import song9 from '../assets/song/song9.mpeg';
+import song1 from '../assets/song/song1.mp3';
+import song2 from '../assets/song/song2.mp3';
+import song3 from '../assets/song/song3.mp3';
+import song4 from '../assets/song/song4.mp3';
+import song5 from '../assets/song/song5.mp3';
+import song6 from '../assets/song/song6.mp3';
+import song7 from '../assets/song/song7.mp3';
+import song8 from '../assets/song/song8.mp3';
+import song9 from '../assets/song/song9.mp3';
 const songs = [
   { name: "song1", sorce: "Youtube", path: song1, date: '10/9/2023', img: songImage },
-  // { name: "song2", sorce: "Youtube", path: song2, date: '14/9/2023', img: songImage },
-  // { name: "song3", sorce: "Mymusic", path: song3, date: '18/9/2023', img: songImage },
-  // { name: "song4", sorce: "Youtube", path: song4, date: '22/9/2023', img: songImage },
-  // { name: "song5", sorce: "STD-Std", path: song5, date: '28/9/2023', img: songImage },
-  // { name: "song6", sorce: "Youtube", path: song6, date: '4/10/2023', img: songImage },
-  // { name: "song7", sorce: "Youtube", path: song7, date: '7/10/2023', img: songImage },
-  // { name: "song8", sorce: "Gana", path: song8, date: '14/10/2023', img: songImage },
-  // { name: "song9", sorce: "Youtube", path: song9, date: '21/10/2023', img: songImage },
+  { name: "song2", sorce: "Youtube", path: song2, date: '14/9/2023', img: songImage },
+  { name: "song3", sorce: "Mymusic", path: song3, date: '18/9/2023', img: songImage },
+  { name: "song4", sorce: "Youtube", path: song4, date: '22/9/2023', img: songImage },
+  { name: "song5", sorce: "STD-Std", path: song5, date: '28/9/2023', img: songImage },
+  { name: "song6", sorce: "Youtube", path: song6, date: '4/10/2023', img: songImage },
+  { name: "song7", sorce: "Youtube", path: song7, date: '7/10/2023', img: songImage },
+  { name: "song8", sorce: "Gana", path: song8, date: '14/10/2023', img: songImage },
+  { name: "song9", sorce: "Youtube", path: song9, date: '21/10/2023', img: songImage },
 ]
 export default function Home() {
   const [song, setSong] = useState(songs);
+  const [audioFile, setAudioFile] = useState({file:"",songName:'song2',img:songImage});
+  const {file,songName,img}=audioFile;
+  const [currentTime, setCurrentTime] = useState(0); 
+  const [duration, setDuration] = useState(0); 
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const toggleAudio = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+
+  // Listen for audio element's timeupdate event to update currentTime
+  useEffect(() => {
+    const updateCurrentTime = () => {
+      setCurrentTime(audioRef.current.currentTime);
+      console.log(currentTime)
+    };
+    audioRef.current.addEventListener('timeupdate', updateCurrentTime);
+    return () => {
+      audioRef.current.removeEventListener('timeupdate', updateCurrentTime);
+    };
+  }, [audioFile]);
+
+  // Listen for the loadedmetadata event to get the audio duration
+  useEffect(() => {
+  
+    const handleLoadedMetadata = () => {
+      setDuration(audioRef.current.duration);
+      console.log(audioRef.current.duration)
+    };
+
+    audioRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+    return () => {
+      audioRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
+    };
+  }, [audioFile]);
+
+  function setPathAudioFile(data){
+    console.log(data)
+    audioRef.current.pause();
+    setIsPlaying(!isPlaying);
+  // Set the new audio source and song name
+  setAudioFile({ file: data.path, songName: data.name, img: data.img });
+  console.log(audioRef.current)
+  // Reset the current time to 0
+  setCurrentTime(0);
+
+  }
   return (
     <section className='song-right-mainsection'>
       <header className='song-header'>
@@ -51,11 +106,11 @@ export default function Home() {
         <tbody>
           {song?.map((item, i) => {
             return (
-              <tr className='table-body-row'>
-                <td><Image src={item.img || songImage} alt='image' /> {item.name | "Song Name"}</td>
+              <tr key={i} className='table-body-row'>
+                <td><Image src={item.img || songImage} alt='image' /> {item.name || "Song Name"}</td>
                 <td>{item.sorce || "Youtube"}</td>
                 <td>{item.date || '19/6/2021'}</td>
-                <td><Image src={play} alt='icon-play' /></td>
+                <td><Image src={play} onClick={()=>setPathAudioFile(item)} alt='icon-play' /></td>
                 <td><Image src={trach} alt='delete-icon' /></td>
               </tr>
             )
@@ -64,15 +119,30 @@ export default function Home() {
         </tbody>
 
       </table>
+      <audio id="audio-element" className=' d-none' ref={audioRef}>
+        <source src={file} type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
       <div className="song-play-box">
-        <div className=" d-flex align-items-center song-name-image">
-          <Image src={songImage} className='song-image' alt='image' />
-          <span className='fs-18 fw-bold '>Sont name</span>
-        </div>
+        <input
+          type="range"
+          name="range"
+          className="video-range"
+          value={currentTime}
+          max={duration}
+          onChange={(e) => {
+            audioRef.current.currentTime = e.target.value;
+          }}
+        />
         <div className="song-actions">
+          <div className=" d-flex align-items-center song-name-image">
+            <Image src={img} className='song-image' alt='image' />
+            <span className='fs-18 fw-bold '>{songName ||"default Name"}</span>
+          </div>
+
           <div className="play-song-frame">
             <Image src={back} className='back-btn' alt='back-btn' />
-            <Image src={pauseIcon} className='play-btn' alt='play-btn' />
+            {isPlaying ? <Image src={pauseIcon} onClick={toggleAudio} className='play-btn' alt='play-btn' /> : <Image src={play} onClick={toggleAudio} className='play-btn' alt='play-btn' />}
             <Image src={next} className='next-btn' alt='next-btn' />
           </div>
         </div>
