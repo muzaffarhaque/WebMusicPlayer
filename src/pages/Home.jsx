@@ -79,7 +79,7 @@ export default function Home() {
   function setPathAudioFile(data) {
     console.log(data)
     audioRef.current.pause();
-    setIsPlaying(!isPlaying);
+    setIsPlaying(false);
     // Set the new audio source and song name
     setAudioFile({ file: data.path, songName: data.name, img: data.img });
     console.log(audioRef.current)
@@ -97,6 +97,10 @@ export default function Home() {
 
     const formattedDate = `${day}/${month}/${year}`;
     setSong([...song, { name: data.songName, sorce: data.songSource, path: data.songLink, date:formattedDate, img: data.songImg }]);
+  }
+  function removeSongHandler(data){
+      let reoveItem=song.filter((item)=>item.name !== data.name);
+      setSong(reoveItem);
   }
   return (
     <section className='song-right-mainsection'>
@@ -130,7 +134,7 @@ export default function Home() {
                 <td>{item.sorce || "Youtube"}</td>
                 <td>{item.date || '19/6/2021'}</td>
                 <td><Image src={play} onClick={() => setPathAudioFile(item)} alt='icon-play' /></td>
-                <td><Image src={trach} alt='delete-icon' /></td>
+                <td><Image onClick={()=>removeSongHandler(item)} src={trach} alt='delete-icon' /></td>
               </tr>
             )
           })}
