@@ -28,7 +28,7 @@ const songs = [
 const itemsPerPage = 4;
 export default function Home() {
   const [song, setSong] = useState(songs);
-  const [audioFile, setAudioFile] = useState({ file: "", songName: 'song2', img: songImage });
+  const [audioFile, setAudioFile] = useState({ file:song1, songName: 'song2', img: songImage });
   const { file, songName, img } = audioFile;
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
