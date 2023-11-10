@@ -102,6 +102,10 @@ export default function Home() {
       let reoveItem=song.filter((item)=>item.name !== data.name);
       setSong(reoveItem);
   }
+  const timeUpdateHandler = (e) => {
+    console.log(e.target.currentTime);
+    setCurrentTime(e.target.currentTime);
+  };
   return (
     <section className='song-right-mainsection'>
       {showModal && <AddSong show={showModal} handleClose={() => { setShowModal(false) }} passData={(e) => addSongFormData(e)} />}
@@ -147,10 +151,15 @@ export default function Home() {
         total={Math.ceil(song.length / itemsPerPage)}
         onPageChange={setCurrentPage}
       />
-      <audio id="audio-element" className=' d-none' ref={audioRef}>
+      {/* <audio id="audio-element" className=' d-none' ref={audioRef}>
         <source src={file} type="audio/mp3" />
         Your browser does not support the audio element.
-      </audio>
+      </audio> */}
+      <audio
+        ref={audioRef}
+        src={file}
+        onTimeUpdate={timeUpdateHandler}
+      ></audio>
       <div className="song-play-box">
         <input
           type="range"
