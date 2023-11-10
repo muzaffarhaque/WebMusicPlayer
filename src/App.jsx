@@ -5,8 +5,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss'
 import {createBrowserRouter,RouterProvider,} from "react-router-dom";
 import { ErrorPage, Home, Layout, Login } from './pages';
+import { Route, Navigate } from 'react-router-dom';
 
+const PrivateRoute = ({ element, ...props }) => {
+   const isAuthenticated = localStorage.getItem('music-token'); // You can replace this with your actual authentication logic
 
+  return isAuthenticated ? (
+    element 
+  ) : (
+    <Navigate to="/login" replace />
+  );
+};
 const router = createBrowserRouter([
   {
     path: "/",
@@ -15,14 +24,14 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home/>,
+        element:<PrivateRoute element={<Home />} />,
       },
      
     ],
   },
   {
     path: "/login",
-    element: <Login/>,
+    element: <Login />,
   },
   {
     element:<ErrorPage/>

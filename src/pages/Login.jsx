@@ -29,6 +29,8 @@ export default function Login() {
         console.log('OTP is = 5678');
         setRequestId(responce.data.requestId);
         toast.success(responce.data.message);
+        localStorage.setItem('music-token',JSON.stringify(responce.data.requestId)); // You can replace this with your actual authentication logic
+
       } else {
         toast.error(responce.response.data.message);
       }
