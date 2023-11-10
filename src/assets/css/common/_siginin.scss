@@ -55,6 +55,11 @@
         font-size: dm(20);
         font-weight: 500;
         background-color: $white;
+        &::-webkit-inner-spin-button {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+        }
     }
     
 }

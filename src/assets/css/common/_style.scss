@@ -84,6 +84,16 @@
             width: dm(20);
 
         }
+        &:last-child{
+            position: absolute;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            img{
+                width: dm(19);
+
+            }
+        }
 
     }
     .active {
