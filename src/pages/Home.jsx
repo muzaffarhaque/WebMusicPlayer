@@ -4,6 +4,8 @@ import trach from '../assets/images/DeleteOutlined.svg';
 import songImage from '../assets/images/songImage.png';
 import play from '../assets/images/play.svg';
 import pauseIcon from '../assets/images/pause.svg';
+import ResponsivePagination from 'react-responsive-pagination';
+import 'react-responsive-pagination/themes/classic.css';
 import back from '../assets/images/prev.svg';
 import next from '../assets/images/next.svg';
 import song1 from '../assets/song/song1.mp3';
@@ -15,26 +17,28 @@ import song6 from '../assets/song/song6.mp3';
 import song7 from '../assets/song/song7.mp3';
 import song8 from '../assets/song/song8.mp3';
 import song9 from '../assets/song/song9.mp3';
+import AddSong from '../components/AddSong';
 const songs = [
   { name: "song1", sorce: "Youtube", path: song1, date: '10/9/2023', img: songImage },
   { name: "song2", sorce: "Youtube", path: song2, date: '14/9/2023', img: songImage },
   { name: "song3", sorce: "Mymusic", path: song3, date: '18/9/2023', img: songImage },
   { name: "song4", sorce: "Youtube", path: song4, date: '22/9/2023', img: songImage },
   { name: "song5", sorce: "STD-Std", path: song5, date: '28/9/2023', img: songImage },
-  { name: "song6", sorce: "Youtube", path: song6, date: '4/10/2023', img: songImage },
-  { name: "song7", sorce: "Youtube", path: song7, date: '7/10/2023', img: songImage },
-  { name: "song8", sorce: "Gana", path: song8, date: '14/10/2023', img: songImage },
-  { name: "song9", sorce: "Youtube", path: song9, date: '21/10/2023', img: songImage },
 ]
+const itemsPerPage = 4;
 export default function Home() {
   const [song, setSong] = useState(songs);
-  const [audioFile, setAudioFile] = useState({file:"",songName:'song2',img:songImage});
-  const {file,songName,img}=audioFile;
-  const [currentTime, setCurrentTime] = useState(0); 
-  const [duration, setDuration] = useState(0); 
+  const [audioFile, setAudioFile] = useState({ file: "", songName: 'song2', img: songImage });
+  const { file, songName, img } = audioFile;
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const paginatedSongs = song.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const toggleAudio = () => {
     if (isPlaying) {
@@ -60,7 +64,7 @@ export default function Home() {
 
   // Listen for the loadedmetadata event to get the audio duration
   useEffect(() => {
-  
+
     const handleLoadedMetadata = () => {
       setDuration(audioRef.current.duration);
       console.log(audioRef.current.duration)
@@ -72,26 +76,41 @@ export default function Home() {
     };
   }, [audioFile]);
 
-  function setPathAudioFile(data){
+  function setPathAudioFile(data) {
     console.log(data)
     audioRef.current.pause();
     setIsPlaying(!isPlaying);
-  // Set the new audio source and song name
-  setAudioFile({ file: data.path, songName: data.name, img: data.img });
-  console.log(audioRef.current)
-  // Reset the current time to 0
-  setCurrentTime(0);
+    // Set the new audio source and song name
+    setAudioFile({ file: data.path, songName: data.name, img: data.img });
+    console.log(audioRef.current)
+    // Reset the current time to 0
+    setCurrentTime(0);
 
+  }
+  function addSongFormData(data) {
+    console.log(data)
+    const currentDate = new Date();
+
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); 
+    const year = currentDate.getFullYear();
+
+    const formattedDate = `${day}/${month}/${year}`;
+    setSong([...song, { name: data.songName, sorce: data.songSource, path: data.songLink, date:formattedDate, img: data.songImg }]);
   }
   return (
     <section className='song-right-mainsection'>
+      {showModal && <AddSong show={showModal} handleClose={() => { setShowModal(false) }} passData={(e) => addSongFormData(e)} />}
       <header className='song-header'>
         <Breadcrumb>
           <Breadcrumb.Item href="#">First-level Menu</Breadcrumb.Item>
           <Breadcrumb.Item href="#">Second-level Menu</Breadcrumb.Item>
           <Breadcrumb.Item >Current Page</Breadcrumb.Item>
         </Breadcrumb>
-        <h5 className='fs-20 fw-medium black-101'>Songs</h5>
+        <div className="d-flex align-items-center justify-content-between">
+          <h5 className='fs-20 fw-medium black-101'>Songs</h5>
+          <button className='second-btn fs-16' onClick={() => setShowModal(true)}>Add Songs</button>
+        </div>
       </header>
       <table className='song-table'>
         <thead>
@@ -104,13 +123,13 @@ export default function Home() {
           </tr>
         </thead>
         <tbody>
-          {song?.map((item, i) => {
+          {paginatedSongs?.map((item, i) => {
             return (
               <tr key={i} className='table-body-row'>
                 <td><Image src={item.img || songImage} alt='image' /> {item.name || "Song Name"}</td>
                 <td>{item.sorce || "Youtube"}</td>
                 <td>{item.date || '19/6/2021'}</td>
-                <td><Image src={play} onClick={()=>setPathAudioFile(item)} alt='icon-play' /></td>
+                <td><Image src={play} onClick={() => setPathAudioFile(item)} alt='icon-play' /></td>
                 <td><Image src={trach} alt='delete-icon' /></td>
               </tr>
             )
@@ -119,6 +138,11 @@ export default function Home() {
         </tbody>
 
       </table>
+      <ResponsivePagination
+        current={currentPage}
+        total={Math.ceil(song.length / itemsPerPage)}
+        onPageChange={setCurrentPage}
+      />
       <audio id="audio-element" className=' d-none' ref={audioRef}>
         <source src={file} type="audio/mp3" />
         Your browser does not support the audio element.
@@ -137,7 +161,7 @@ export default function Home() {
         <div className="song-actions">
           <div className=" d-flex align-items-center song-name-image">
             <Image src={img} className='song-image' alt='image' />
-            <span className='fs-18 fw-bold '>{songName ||"default Name"}</span>
+            <span className='fs-18 fw-bold '>{songName || "default Name"}</span>
           </div>
 
           <div className="play-song-frame">

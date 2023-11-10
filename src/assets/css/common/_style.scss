@@ -31,6 +31,18 @@
     border: none;
 
 }
+.second-btn {
+    border-radius: dm(2);
+    background: #FDB927;
+    padding: dm(9) dm(16);
+    outline: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 dm(2) 0 0 rgba(0, 0, 0, 0.04);
+    &:hover{
+        background: rgba(253, 185, 38,.6);
+    }
+}
 .mb-13 {
     margin-bottom: dm(13) !important;
 }
@@ -48,12 +60,12 @@
 // 
 // 
 // ?===================== LAYOUT CSS START ==================
-.side-nave-bar{
+.side-nave-bar {
     width: 20vw;
     list-style: none;
     background: #FFF;
     box-shadow: dm(-1) 0 0 0 rgba(0, 0, 0, 0.05) inset;
-   
+
     li {
         padding: 0 dm(24);
         height: dm(40);
@@ -79,7 +91,7 @@
         border-right: dm(3) solid #1890FF;
     }
 }
-.layout-right-main-wrapper{
+.layout-right-main-wrapper {
     width: 80vw;
 }
 // ?===================== LAYOUT CSS END ==================

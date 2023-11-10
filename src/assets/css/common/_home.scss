@@ -38,6 +38,7 @@
 }
 .song-table {
     width: 100%;
+    margin-bottom: dm(20);
     .thable-header-row {
         th {
             padding: dm(40) 0 dm(20);
@@ -135,7 +136,7 @@
             align-items: center;
             justify-content: flex-start;
             gap: dm(5);
-            .song-image{
+            .song-image {
                 width: dm(70);
             }
         }
@@ -160,17 +161,16 @@
 
 }
 
-
-.video-range{
+.video-range {
     -webkit-appearance: none;
     width: 100%;
     height: dm(5);
     background: #ccc;
-    border-radius:dm(1);
+    border-radius: dm(1);
     outline: none;
     opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
     &::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
@@ -190,4 +190,73 @@
     //     position: absolute;
     //     border-radius: dm(1);
     // }
+}
+
+.innput-frame-box {
+    width: 100%;
+    margin-bottom: dm(20);
+    p {
+        margin-bottom: dm(8);
+    }
+    .input-box {
+        width: 100%;
+        border-radius: dm(2);
+        border: dm(1) solid var(--neutral-5, #D9D9D9);
+        background: var(--neutral-1, #FFF);
+        padding: dm(4) dm(12);
+        outline: none;
+        box-shadow: none;
+    }
+}
+
+.image-uploader-frame {
+    border-radius: dm(2);
+    border: dm(1) solid var(--neutral-5, #D9D9D9);
+    background: var(--neutral-1, #FFF);
+    box-shadow: 0 dm(2) 0 0 rgba(0, 0, 0, 0.02);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: dm(13);
+    padding: dm(4) dm(8);
+    img{
+        width: dm(15);
+    }
+}
+
+.upload-image-frame{
+    border-radius: dm(2);
+    border: dm(1) solid var(--neutral-5, #D9D9D9);
+    background: var(--neutral-1, #FFF);
+    box-shadow: 0 dm(2) 0 0 rgba(0, 0, 0, 0.02);
+    padding: dm(9) dm(8);
+    display: flex;
+    align-items: center;
+    margin-top: dm(24);
+    justify-content: space-between;
+    .uplade-song-image{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: dm(3);
+        img{
+            width: dm(60);
+            margin-right: dm(3);
+        }
+    }
+    .upload-image{
+        width: dm(19);
+        margin-right: dm(20);
+        cursor: pointer;
+    }
+
+   
+}
+
+.custom-modal{
+    .modal-content{
+       max-width: 789px;
+       width: 100vw;
+       margin-top: 20%;
+    }
 }
